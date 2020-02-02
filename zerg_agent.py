@@ -54,7 +54,7 @@ class ZergAgent(base_agent.BaseAgent):
                 return actions.FUNCTIONS.select_army("select")
 
         spawning_pools = self.get_units_by_type(obs, units.Zerg.SpawningPool)
-        if len(spawning_pools) == 0:
+        if len(spawning_pools) < 1:
             if self.unit_type_is_selected(obs, units.Zerg.Drone):
                 if self.can_do(obs, actions.FUNCTIONS.Build_SpawningPool_screen.id):
                     x = random.randint(0, 83)
@@ -63,7 +63,7 @@ class ZergAgent(base_agent.BaseAgent):
                     return actions.FUNCTIONS.Build_SpawningPool_screen("now", (x, y))
 
         hatcheries = self.get_units_by_type(obs, units.Zerg.Hatchery)
-        if (len(spawning_pools) < 2) and (obs.observation.player.minerals > 600):
+        if (len(hatcheries) < 2) and (obs.observation.player.minerals > 600):
             if self.unit_type_is_selected(obs, units.Zerg.Drone):
                 if self.can_do(obs, actions.FUNCTIONS.Build_Hatchery_screen.id):
                     x = random.randint(0, 83)
